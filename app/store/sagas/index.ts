@@ -2,9 +2,9 @@
  *  Redux saga class init
  */
 import { takeEvery, all } from 'redux-saga/effects';
-import * as types from '../actions/types';
-import loginSaga from './loginSaga';
+import * as loginTypes from 'app/screens/Login/types';
+import loginSaga from 'app/screens/Login/loginSaga';
 
 export default function* watch() {
-  yield all([takeEvery(types.LOGIN_REQUEST, loginSaga)]);
+  yield all([takeEvery(loginTypes.LOGIN_REQUEST, loginSaga)]);
 }
