@@ -1,10 +1,10 @@
 //@ts-nocheck
 import React, { useRef } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextInput, Title } from 'react-native-paper';
-
+import styles from './styles';
 // import TextInput from '../../components/TextInput';
 // import Button from '../../components/Button';
 import {Button} from "react-native-paper"
@@ -17,7 +17,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 export default function Login(props) {
-  const {onLogin} = props;
+  const {goBack,onSignup} = props;
   const [email, setEmail] = React.useState('');
 
   const {
@@ -32,14 +32,17 @@ export default function Login(props) {
     initialValues: { email: '', password: '' },
     onSubmit: values =>
     {
+        console.log(values);
+        onSignup();
       // alert(`Email: ${values.email}, Password: ${values.password}`)
-      onLogin();
+    //   onLogin();
     }
     });
 
   const password = useRef(null);
 
   return (
+    <ScrollView>
     <View
       style={{
         margin:20,
@@ -52,6 +55,22 @@ export default function Login(props) {
       }}
     >
       <Title style={{marginBottom:20,  justifyContent: 'center',alignItems: 'center'}}>Welcome Back</Title>
+      <View style={{marginBottom:20}}>
+        <TextInput
+          type={"flat"}
+          label="First Name"
+          value={values.firstName}
+          onChangeText={handleChange("firstName")}
+        />
+        </View>
+        <View style={{marginBottom:20}}>
+        <TextInput
+          type={"flat"}
+          label="Last Name"
+          value={values.lastName}
+          onChangeText={handleChange("lastName")}
+        />
+        </View>
       <View style={{marginBottom:20}}>
         <TextInput
           type={"flat"}
@@ -69,9 +88,19 @@ export default function Login(props) {
           onChangeText={handleChange("password")}
         />
         </View>
+        
         <View>
-      <Button icon={"login"} mode={"contained"}onPress={handleSubmit}><Text>Login</Text></Button>
+      <Button icon={"login"} mode={"contained"} onPress={handleSubmit}><Text>Signup</Text></Button>
       </View>
     </View>
+    <Button
+        mode="text"
+        style={styles.forgot}
+        labelStyle={styles.labelStyle}
+        onPress={goBack}>
+        <Text>Back to Login
+      </Text>    
+  </Button>
+    </ScrollView>
   );
 }

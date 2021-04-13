@@ -76,7 +76,7 @@ const AuthNavigator = () => {
           title:"test"
         }}
       />
-      {/* <Stack.Screen name={ForgotPassword} component={ForgotPassword}/> */}
+      {/* <Stack.Screen name={"ForgotPassword"} component={ForgotPassword}/> */}
     </AuthTab.Navigator>
   );
 };
@@ -107,8 +107,10 @@ const App: React.FC<IProps> = (props: IProps) => {
             component={LoggedInNavigator}
             options={homeOptions}
           />
+
           </>
         ) : (
+          <>
           <Stack.Screen
             name="Login"
             component={AuthNavigator}
@@ -120,6 +122,9 @@ const App: React.FC<IProps> = (props: IProps) => {
               headerRight: () => <ThemeController isLoggedIn={isLoggedIn}/>,
             }}
           />
+                          <Stack.Screen name={"ForgotPassword"} component={ForgotPassword}/>
+
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

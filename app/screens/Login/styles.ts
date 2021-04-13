@@ -15,6 +15,13 @@ const styles = StyleSheet.create({
   labelStyle: {
     fontSize: 12,
   },
+  formContainer: {
+    // flex:1,
+    width:"100%",
+    marginLeft:20,
+    // marginLeft:20,
+    marginRight:20
+  }
 });
 
 export default styles;

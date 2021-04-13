@@ -20,11 +20,9 @@ const Login: React.FC = () => {
   const onForgot = () => NavigationService.navigate('ForgotPassword');
   return (
       <View style={styles.container}>
-        <Text style={styles.login}>Login Status : {id}</Text>
-        {/* <MyForm /> */}
-        <Button icon="login" mode="outlined" onPress={onLogin}>
-          <Text>Login</Text>
-        </Button>
+        <View style={styles.formContainer}>
+        <MyForm onLogin={onLogin}/>
+        </View>
         <Button
           mode="text"
           style={styles.forgot}
@@ -36,4 +34,5 @@ const Login: React.FC = () => {
     </View>
   );
 }
+
 export default Login;

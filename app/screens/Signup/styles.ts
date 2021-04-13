@@ -6,6 +6,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  formContainer: {
+    // flex:1,
+    width:"100%",
+    marginLeft:20,
+    // marginLeft:20,
+    marginRight:20
+  }
 });
+
 
 export default styles;
