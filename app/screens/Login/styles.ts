@@ -28,6 +28,10 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
+export const ErrorText = styled(Text)`
+  font-size: 10;
+  color: red;
+`;
 export const StyledTextInput = styled(TextInput)``;
 export const StyledTitle = styled(Title)``;
 export const StyledView = styled.View``;

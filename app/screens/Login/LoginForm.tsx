@@ -2,7 +2,6 @@
 import React, { useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
 import {
   FormField,
   StyledView,
@@ -12,6 +11,7 @@ import {
   StyledTextInput,
   StyledTitle,
   ScrollView,
+  ErrorText,
 } from './styles';
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -23,7 +23,6 @@ const LoginSchema = Yup.object().shape({
 
 export default function Login(props) {
   const { onLogin } = props;
-  const [email, setEmail] = React.useState('');
 
   const {
     handleChange,
@@ -32,8 +31,9 @@ export default function Login(props) {
     values,
     errors,
     touched,
+    isValid,
   } = useFormik({
-    // validationSchema: LoginSchema,
+    validationSchema: LoginSchema,
     initialValues: { email: '', password: '' },
     onSubmit: (values) => {
       if (values.email === 'admin@test.com' && values.password === 'password') {
@@ -44,7 +44,8 @@ export default function Login(props) {
     },
   });
 
-  const password = useRef(null);
+  const ref_password = useRef();
+  console.log('touched', touched);
 
   return (
     <ScrollView>
@@ -55,16 +56,27 @@ export default function Login(props) {
             label="Email"
             value={values.email}
             onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            returnKeyType="next"
+            onSubmitEditing={() => ref_password.current.focus()}
           />
+          {errors.email && touched.email && (
+            <ErrorText>{errors.email}</ErrorText>
+          )}
         </FormField>
         <FormField>
           <StyledTextInput
+            ref={ref_password}
             type={'flat'}
             label="Password"
             secureTextEntry={true}
+            onBlur={handleBlur('password')}
             value={values.password}
             onChangeText={handleChange('password')}
           />
+          {errors.password && touched.password && (
+            <ErrorText>{errors.password}</ErrorText>
+          )}
         </FormField>
         <StyledView>
           <StyledButton
