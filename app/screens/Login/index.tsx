@@ -1,11 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text, Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as loginActions from 'app/screens/Login/loginActions';
 import MyForm from './LoginForm';
 import styles from './styles';
+import {
+  Container,
+  FormContainerWrapper,
+  StyledButton,
+  StyledText,
+  StyledTitle,
+} from './styles';
 import { ILoginState } from 'app/models/reducers/login';
 import NavigationService from 'app/navigation/NavigationService';
 
@@ -19,20 +24,20 @@ const Login: React.FC = () => {
   const onLogin = () => dispatch(loginActions.requestLogin('test', '1234'));
   const onForgot = () => NavigationService.navigate('ForgotPassword');
   return (
-      <View style={styles.container}>
-        <View style={styles.formContainer}>
-        <MyForm onLogin={onLogin}/>
-        </View>
-        <Button
-          mode="text"
-          style={styles.forgot}
-          labelStyle={styles.labelStyle}
-          onPress={onForgot}>
-          <Text>Forgot Password
-        </Text>    
-    </Button>
-    </View>
+    <Container>
+      <StyledTitle>Welcome Back!</StyledTitle>
+      <FormContainerWrapper>
+        <MyForm onLogin={onLogin} />
+      </FormContainerWrapper>
+      <StyledButton
+        mode="text"
+        onPress={onForgot}
+        labelStyle={styles.labelStyle}
+      >
+        <StyledText>Forgot Password</StyledText>
+      </StyledButton>
+    </Container>
   );
-}
+};
 
 export default Login;

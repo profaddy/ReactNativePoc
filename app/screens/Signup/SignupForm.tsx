@@ -7,18 +7,17 @@ import { TextInput, Title } from 'react-native-paper';
 import styles from './styles';
 // import TextInput from '../../components/TextInput';
 // import Button from '../../components/Button';
-import {Button} from "react-native-paper"
+import { Button } from 'react-native-paper';
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
     .min(2, 'Too Short!')
     .max(10, 'Too Long!')
-    .required('Required')
+    .required('Required'),
 });
 
 export default function Login(props) {
-  const {goBack,onSignup} = props;
-  const [email, setEmail] = React.useState('');
+  const { goBack, onSignup } = props;
 
   const {
     handleChange,
@@ -26,81 +25,81 @@ export default function Login(props) {
     handleSubmit,
     values,
     errors,
-    touched
+    touched,
   } = useFormik({
     // validationSchema: LoginSchema,
-    initialValues: { email: '', password: '' },
-    onSubmit: values =>
-    {
-        console.log(values);
-        onSignup();
-      // alert(`Email: ${values.email}, Password: ${values.password}`)
-    //   onLogin();
-    }
-    });
-
-  const password = useRef(null);
+    initialValues: { firstName: '', lastName: '', email: '', password: '' },
+    onSubmit: (values) => {
+      console.log(values);
+      onSignup();
+    },
+  });
 
   return (
     <ScrollView>
-    <View
-      style={{
-        margin:20,
+      <View
+        style={{
+          margin: 20,
+          justifyContent: 'center',
+        }}
+      >
+        <Title
+          style={{
+            marginBottom: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          Welcome Back
+        </Title>
+        <View style={{ marginBottom: 20 }}>
+          <TextInput
+            type={'flat'}
+            label="First Name"
+            value={values.firstName}
+            onChangeText={handleChange('firstName')}
+          />
+        </View>
+        <View style={{ marginBottom: 20 }}>
+          <TextInput
+            type={'flat'}
+            label="Last Name"
+            value={values.lastName}
+            onChangeText={handleChange('lastName')}
+          />
+        </View>
+        <View style={{ marginBottom: 20 }}>
+          <TextInput
+            type={'flat'}
+            label="Email"
+            value={values.email}
+            onChangeText={handleChange('email')}
+          />
+        </View>
+        <View style={{ marginBottom: 20 }}>
+          <TextInput
+            type={'flat'}
+            label="Password"
+            secureTextEntry={true}
+            value={values.password}
+            onChangeText={handleChange('password')}
+          />
+        </View>
 
-        // flex: 1,
-        // backgroundColor: '#fff',
-        // alignItems: 'center',
-        justifyContent: 'center',
-        // width:"100%"
-      }}
-    >
-      <Title style={{marginBottom:20,  justifyContent: 'center',alignItems: 'center'}}>Welcome Back</Title>
-      <View style={{marginBottom:20}}>
-        <TextInput
-          type={"flat"}
-          label="First Name"
-          value={values.firstName}
-          onChangeText={handleChange("firstName")}
-        />
-        </View>
-        <View style={{marginBottom:20}}>
-        <TextInput
-          type={"flat"}
-          label="Last Name"
-          value={values.lastName}
-          onChangeText={handleChange("lastName")}
-        />
-        </View>
-      <View style={{marginBottom:20}}>
-        <TextInput
-          type={"flat"}
-          label="Email"
-          value={values.email}
-          onChangeText={handleChange("email")}
-        />
-        </View>
-        <View style={{marginBottom:20}}>
-        <TextInput
-        type={"flat"}
-          label="Password"
-          secureTextEntry={true}
-          value={values.password}
-          onChangeText={handleChange("password")}
-        />
-        </View>
-        
         <View>
-      <Button icon={"login"} mode={"contained"} onPress={handleSubmit}><Text>Signup</Text></Button>
+          <Button icon={'login'} mode={'contained'} onPress={handleSubmit}>
+            <Text>Signup</Text>
+          </Button>
+        </View>
       </View>
-    </View>
-    <Button
+      <Button
         mode="text"
         style={styles.forgot}
         labelStyle={styles.labelStyle}
-        onPress={goBack}>
-        <Text>Back to Login
-      </Text>    
-  </Button>
+        onPress={goBack}
+      >
+        <Text>Back to Login</Text>
+      </Button>
     </ScrollView>
   );
 }
