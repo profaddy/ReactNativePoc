@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { FlatList, TouchableOpacity } from 'react-native';
 import {
   StyledTitle,
@@ -11,13 +12,26 @@ import {
 } from './styles.ts';
 import styles from './styles';
 import products from './productList';
-import { useDispatch } from 'react-redux';
 import NavigationService from 'app/navigation/NavigationService';
+import * as productActions from './productActions';
 
 const Home: React.FC = () => {
+  const [products1, setProducts1] = useState([]);
+  const productList = useSelector(
+    (state: IState) => state.productReducer.productList
+  );
+
   const dispatch = useDispatch();
   const [columns, setColumns] = useState(2);
   // const onLogout = () => dispatch(loginActions.logOut());
+  useEffect(() => {
+    getProducts();
+  }, []);
+  const getProducts = () => {
+    dispatch(productActions.getProducts());
+    // console.log(productList, 'productList in component');
+  };
+  console.log(productList, 'productList in component');
 
   const renderItem = (item: object) => {
     const product = item.item;
@@ -51,7 +65,7 @@ const Home: React.FC = () => {
           key={`${columns}$item.id}`}
           numColumns={columns} // set number of columns
           // columnWrapperStyle={styles.row}
-          data={products}
+          data={productList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
