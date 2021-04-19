@@ -13,8 +13,6 @@ import {
   StyledButton,
   StyledText,
 } from './styles';
-import styles from './styles';
-import { Button } from 'react-native-paper';
 const LoginSchema = Yup.object().shape({
   firstName: Yup.string().required('Required'),
   lastName: Yup.string().required('Required'),
@@ -39,7 +37,7 @@ export default function Signup(props) {
     validationSchema: LoginSchema,
     initialValues: { firstName: '', lastName: '', email: '', password: '' },
     onSubmit: (values) => {
-      onSignup();
+      onSignup(values);
     },
   });
   const ref_lastName = useRef();
@@ -115,7 +113,7 @@ export default function Signup(props) {
           </StyledButton>
         </View>
       </Container>
-      <StyledButton mode="text" labelStyle={styles.labelStyle} onPress={goBack}>
+      <StyledButton mode="text" onPress={goBack}>
         <StyledText>Back to Login</StyledText>
       </StyledButton>
     </ScrollView>

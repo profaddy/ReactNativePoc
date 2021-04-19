@@ -19,7 +19,6 @@ interface IState {
 }
 
 const Login: React.FC = () => {
-  const id = useSelector((state: IState) => state.loginReducer.id);
   const dispatch = useDispatch();
   const onLogin = (loginDetails: object) =>
     dispatch(

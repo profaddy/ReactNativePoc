@@ -11,12 +11,10 @@ import {
   StyledParagraph,
 } from './styles.ts';
 import styles from './styles';
-import products from './productList';
 import NavigationService from 'app/navigation/NavigationService';
 import * as productActions from './productActions';
 
 const Home: React.FC = () => {
-  const [products1, setProducts1] = useState([]);
   const productList = useSelector(
     (state: IState) => state.productReducer.productList
   );

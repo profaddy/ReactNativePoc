@@ -23,14 +23,3 @@ export const getProductList: IGetProductsData | object = async () => {
 
   return response.data;
 };
-
-// export const setScheduler = async (endpoint: string) => {
-//   const response: IResponseGetSnapshots = await ApiUtil({
-//     endpoint: `${endpoint}`,
-//     method: 'post',
-//     headers: {},
-//     data: {},
-//   });
-
-//   return response.data;
-// };

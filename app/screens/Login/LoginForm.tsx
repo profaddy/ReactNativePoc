@@ -36,12 +36,7 @@ export default function Login(props) {
     validationSchema: LoginSchema,
     initialValues: { email: '', password: '' },
     onSubmit: (values) => {
-      // if (values.email === 'admin@test.com' && values.password === 'password') {
       onLogin(values);
-      // }
-      //  else {
-      //   alert(`Invalid Credentials for user ${values.email}`);
-      // }
     },
   });
 
