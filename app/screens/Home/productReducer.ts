@@ -7,7 +7,7 @@ import * as types from './types';
 import { IProductsState, IResponse } from 'app/models/reducers/login';
 const initialState: IProductsState = {
   productList: [],
-  fetchingStatus: '',
+  fetchingStatus: 'unknown',
 };
 
 export const productReducer = createReducer(initialState, {

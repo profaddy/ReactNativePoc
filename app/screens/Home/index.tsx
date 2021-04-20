@@ -8,16 +8,23 @@ import {
   StyledButton,
   StyledSafeAreaView,
   StyledCard,
+  StyledText,
   StyledParagraph,
 } from './styles.ts';
 import styles from './styles';
 import NavigationService from 'app/navigation/NavigationService';
 import * as productActions from './productActions';
+import { IProductsState, IResponse } from 'app/models/reducers/login';
+import Loader from 'app/components/Loader/Loader';
 
 const Home: React.FC = () => {
-  const productList = useSelector(
-    (state: IState) => state.productReducer.productList
+  const productDetails = useSelector(
+    (state: IProductsState) => state.productReducer
   );
+  const { productList, fetchingStatus } = productDetails;
+  // const productList = useSelector(
+  //   (state: IState) => state.productReducer.productList
+  // );
 
   const dispatch = useDispatch();
   const [columns, setColumns] = useState(2);
@@ -29,7 +36,6 @@ const Home: React.FC = () => {
     dispatch(productActions.getProducts());
     // console.log(productList, 'productList in component');
   };
-  console.log(productList, 'productList in component');
 
   const renderItem = (item: object) => {
     const product = item.item;
@@ -56,25 +62,32 @@ const Home: React.FC = () => {
       </TouchableOpacity>
     );
   };
+  console.log(fetchingStatus, 'fetchingStatus');
   return (
     <Container>
-      <StyledSafeAreaView style={styles.container}>
-        <FlatList
-          key={`${columns}$item.id}`}
-          numColumns={columns} // set number of columns
-          // columnWrapperStyle={styles.row}
-          data={productList}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </StyledSafeAreaView>
-      <StyledButton
-        icon="grid"
-        mode="outlined"
-        onPress={() => (columns === 1 ? setColumns(2) : setColumns(1))}
-      >
-        Toggle Grid
-      </StyledButton>
+      {fetchingStatus === 'success' && (
+        <>
+          <StyledSafeAreaView style={styles.container}>
+            <FlatList
+              key={`${columns}$item.id}`}
+              numColumns={columns} // set number of columns
+              // columnWrapperStyle={styles.row}
+              data={productList}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+            />
+          </StyledSafeAreaView>
+          <StyledButton
+            icon="grid"
+            mode="outlined"
+            onPress={() => (columns === 1 ? setColumns(2) : setColumns(1))}
+          >
+            Toggle Grid
+          </StyledButton>
+        </>
+      )}
+      {fetchingStatus === 'loading' && <Loader size={'large'} />}
+      {fetchingStatus === 'unknown' && <StyledText></StyledText>}
     </Container>
   );
 };
